@@ -54,12 +54,13 @@ Instalar el siguiente paquete de python:
 
 ## Uso
 
-* Complete los datos de su paralelo de fundamentos en el archivo **PARNN_AÑOTERMINO.xlsx**
-* Corra el script **validation_data.py** pero modifique el nombre del archivo en la línea 8
+* Llene el arhivo de excel src/archivo.xlsx
+* Puede cambiar el nombre del archivo
+* Ejecute el script como: **python3 src/validation_data.py archivo.xlsx**
 * Al finalizar se imprimirá un mensaje con la cantidad de estudiantes en los que se encontraron errores.
 * Abra su archivo y corrija las celdas con los colores descritos en la tabla descrita anterior.
 * Vuelva a correr el script.
 
 ====================================
 
-© 2018 eslozano
+© 2018 eslozano, obayona

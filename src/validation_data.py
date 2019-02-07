@@ -2,11 +2,17 @@ from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 from estudiante import Estudiante
 import pandas as pd
+import sys
 
 
 #Escriba el nombre del archivo de los datos a validar
-filename = "PAR18_2018I.xlsx"
+if (len(sys.argv)<2):
+	print("Error, ingrese el nombre del archivo")
+	print("$python3 validation_data.py archivo.xlsx")
+	exit()
 
+filename = sys.argv[1]
+print("**",filename,"**")
 
 
 
@@ -110,6 +116,9 @@ columnas = ["nombre","matricula","genero","paralelo","cod_carrera","veces_tomada
 			"1er_exam_tema1","1er_exam_tema2","1er_exam_tema3",
 			"2do_proyecto", "2do_sustent","2do_lecciones", "2do_calif_final",
 			"2do_exam_tema1","2do_exam_tema2","2do_exam_tema3",
+			"2do_exam_tema4","2do_exam_tema5","2do_exam_tema6",
+			"2do_exam_tema7","2do_exam_tema8","2do_exam_tema9",
+			"2do_exam_tema10",
 			"calif_final_practica",
 			"3er_proyecto","3er_calif_final",
 			"3er_exam_tema1","3er_exam_tema2","3er_exam_tema3"
