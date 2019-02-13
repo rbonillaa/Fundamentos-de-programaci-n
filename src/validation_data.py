@@ -94,7 +94,7 @@ def validateDataSheet(filename,columnas,colores,errorsMessages,validaciones):
 		else:
 			print("="*150)
 			print('¡Felicidades! Tu archivo de excel está listo para ser enviado')
-			print('Por favor enviar a rabonilla@espol.edu.ec y a eslozano@espol.edu.ec')
+			print('Por favor enviar a rabonilla@espol.edu.ec y a obayona@fiec.espol.edu.ec')
 		print("="*150)
 		print("Copyright (c) 2018 eslozano")
 		print('All Rights Reserved :)')
@@ -141,8 +141,8 @@ validaciones = {
 	"sustent": 1,
 	"proyecto": {"1er_proyecto":20,"2do_proyecto":20,"3er_proyecto":25},
 	"examen":{
-		"1er_exam_": { "tema1": 40, "tema2": 50, "tema3": 10 },
-		"2do_exam_": { "tema1": 40, "tema2": 50, "tema3": 10 },
+		"1er_exam_": { "tema1": 20, "tema2": 30, "tema3": 50 },
+		"2do_exam_": { "tema1": 15, "tema2": 10, "tema3": 20,"tema4": 15, "tema5": 20, "tema6": 1,"tema7": 9, "tema8":1, "tema9": 9,"tema10": 10},
 		"3er_exam_": { "tema1": 40, "tema2": 50, "tema3": 10 }
 	},
 	"lecciones":10,

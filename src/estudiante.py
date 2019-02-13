@@ -20,9 +20,13 @@ class Estudiante:
 			primer_exam_tema1,primer_exam_tema2,primer_exam_tema3, \
 			segundo_proyecto,segundo_sustent,segundo_lecciones,segundo_calif_final, \
 			segundo_exam_tema1,segundo_exam_tema2,segundo_exam_tema3, \
+			segundo_exam_tema4,segundo_exam_tema5,segundo_exam_tema6, \
+			segundo_exam_tema7,segundo_exam_tema8,segundo_exam_tema9, \
+			segundo_exam_tema10, \
 			calif_final_practica, \
 			tercer_proyecto,tercer_calif_final, \
 			tercer_exam_tema1,tercer_exam_tema2,tercer_exam_tema3 = datos[:columnas]
+
 		self.nombre = nombre
 		self.matricula = matricula
 		self.genero = genero
@@ -53,7 +57,9 @@ class Estudiante:
 
 		self.examen = {
 			"1er_exam_": { "tema1": primer_exam_tema1 , "tema2": primer_exam_tema2 , "tema3": primer_exam_tema3 },
-			"2do_exam_": { "tema1": segundo_exam_tema1 , "tema2": segundo_exam_tema2 , "tema3": segundo_exam_tema3 },
+			"2do_exam_": { "tema1": segundo_exam_tema1 , "tema2": segundo_exam_tema2 , "tema3": segundo_exam_tema3,
+							"tema4":segundo_exam_tema4,"tema5":segundo_exam_tema5,"tema6":segundo_exam_tema6,
+							"tema7":segundo_exam_tema7,"tema8":segundo_exam_tema8,"tema9":segundo_exam_tema9,"tema10":segundo_exam_tema10},
 			"3er_exam_": { "tema1": tercer_exam_tema1 , "tema2": tercer_exam_tema2 , "tema3": tercer_exam_tema3 }
 		}
 
