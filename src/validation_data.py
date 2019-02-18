@@ -5,25 +5,6 @@ import pandas as pd
 import sys
 
 
-#Escriba el nombre del archivo de los datos a validar
-if (len(sys.argv)<2):
-	print("Error, ingrese el nombre del archivo")
-	print("$python3 validation_data.py archivo.xlsx")
-	exit()
-
-filename = sys.argv[1]
-print("**",filename,"**")
-
-
-
-OPCION_NO_VALIDA = 'dato_no_valido'
-VACIO = 'dato_vacio'
-FUERA_DE_RANGO = 'dato_fuera_de_rango'
-NO_REDONDEADO = 'dato_no_redondeado'
-TIPO_NO_NUMERICO = 'dato_no_numerico'
-
-
-
 def fillCell(cell,color,fill_type=None):
 	fill = PatternFill(fgColor=color,fill_type=fill_type)
 	cell.fill = fill
@@ -59,7 +40,7 @@ def validateDataSheet(filename,columnas,colores,errorsMessages,validaciones):
 			for cell in row:
 				data.append(cell.value)
 				fillCell(cell,colores[VACIO]) #Restore cell color
-			estudiante = Estudiante(data, len(columnas))
+			estudiante = Estudiante(data, columnas)
 			estudiante.convertir()
 			convertirDatosNumericos(estudiante,row,columnas)
 			#Luego de convertir datos numéricos, se valida
@@ -106,23 +87,41 @@ def validateDataSheet(filename,columnas,colores,errorsMessages,validaciones):
 		if e.errno == 13:
 			print("El archivo ",filename," se encuentra abierto.")
 
-def dataAnalysis(filename):
-	df = pd.read_excel("filename",skiprows =2)
+
+def getColumns(filename):
+	wb = load_workbook(filename)
+	data_sheet = wb["DATA"]
+	total_columns = data_sheet.max_column
+
+	rows = []
+
+	for row in data_sheet.iter_rows(min_row=0, max_col=total_columns, max_row=2):
+		column_data = []
+		for cell in row:
+			column_data.append(cell.value)
+		rows.append(column_data)
+
+	wb.close()
+	return tuple(rows)
 
 
-#Las columnas deben estar en el orden del excel
-columnas = ["nombre","matricula","genero","paralelo","cod_carrera","veces_tomadas",
-			"1er_proyecto", "1er_sustent","1er_lecciones", "1er_calif_final",
-			"1er_exam_tema1","1er_exam_tema2","1er_exam_tema3",
-			"2do_proyecto", "2do_sustent","2do_lecciones", "2do_calif_final",
-			"2do_exam_tema1","2do_exam_tema2","2do_exam_tema3",
-			"2do_exam_tema4","2do_exam_tema5","2do_exam_tema6",
-			"2do_exam_tema7","2do_exam_tema8","2do_exam_tema9",
-			"2do_exam_tema10",
-			"calif_final_practica",
-			"3er_proyecto","3er_calif_final",
-			"3er_exam_tema1","3er_exam_tema2","3er_exam_tema3"
-]
+#---- Main ------#
+
+if (len(sys.argv)<2):
+	print("Error, ingrese el nombre del archivo")
+	print("$python3 validation_data.py archivo.xlsx")
+	exit()
+
+filename = sys.argv[1]
+print("**",filename,"**")
+
+
+OPCION_NO_VALIDA = 'dato_no_valido'
+VACIO = 'dato_vacio'
+FUERA_DE_RANGO = 'dato_fuera_de_rango'
+NO_REDONDEADO = 'dato_no_redondeado'
+TIPO_NO_NUMERICO = 'dato_no_numerico'
+
 #Los colores en los que se resaltarán las celdas según los errores
 colors = {
 	VACIO:"ffd8bf", #naranja 
@@ -133,6 +132,15 @@ colors = {
 }
 
 errorsMessages= [VACIO,OPCION_NO_VALIDA,FUERA_DE_RANGO,TIPO_NO_NUMERICO,NO_REDONDEADO]
+
+#df = pd.read_excel(filename)
+#columnas = list(df.columns)
+#validations = list(df.iloc[0])
+
+columnas,validations=getColumns(filename)
+
+"""
+se crea un diccionario con el siguiente formato
 
 validaciones = {	
 	"genero": ["F","M"],
@@ -147,5 +155,26 @@ validaciones = {
 	},
 	"lecciones":10,
 }
+"""
+validaciones = {
+	"genero": ["F","M"],
+	"veces_tomadas":[2,3],
+	"calif_final": 100,
+	"sustent": 1,
+	"proyecto":{"1er_proyecto":20,"2do_proyecto":20,"3er_proyecto":25},
+	"lecciones":10
+}
+# se agregan las preguntas del examen
+examen_dict = {}
+exam_list = ["1er_exam_","2do_exam_","3er_exam_"]
+for exam in exam_list:
+	q = {}
+	for i,c in enumerate(columnas):
+		if exam in c:
+			q[c] = validations[i]
+	examen_dict[exam]=q
+
+print(examen_dict)
+validaciones["examen"]=examen_dict
 
 validateDataSheet(filename,columnas,colors,errorsMessages, validaciones)
