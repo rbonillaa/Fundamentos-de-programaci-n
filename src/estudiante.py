@@ -14,55 +14,45 @@ class Estudiante:
 	lecciones = None
 
 	def __init__(self, datos, columnas):
-		#La tupla contiene el objeto celda del excel para cada variable
-		nombre,matricula,genero,paralelo,cod_carrera,veces_tomadas, \
-			primer_proyecto,primer_sustent,primer_lecciones,primer_calif_final, \
-			primer_exam_tema1,primer_exam_tema2,primer_exam_tema3, \
-			segundo_proyecto,segundo_sustent,segundo_lecciones,segundo_calif_final, \
-			segundo_exam_tema1,segundo_exam_tema2,segundo_exam_tema3, \
-			segundo_exam_tema4,segundo_exam_tema5,segundo_exam_tema6, \
-			segundo_exam_tema7,segundo_exam_tema8,segundo_exam_tema9, \
-			segundo_exam_tema10, \
-			calif_final_practica, \
-			tercer_proyecto,tercer_calif_final, \
-			tercer_exam_tema1,tercer_exam_tema2,tercer_exam_tema3 = datos[:columnas]
 
-		self.nombre = nombre
-		self.matricula = matricula
-		self.genero = genero
-		self.paralelo = paralelo
-		self.cod_carrera = cod_carrera
-		self.veces_tomadas = veces_tomadas
+		self.nombre = datos[0]
+		self.matricula = datos[1]
+		self.genero = datos[2]
+		self.paralelo = datos[3]
+		self.cod_carrera = datos[4]
+		self.veces_tomadas = datos[5]
 		self.actividades = {
 			"sustent" : {
-				"1er_sustent": primer_sustent, 
-				"2do_sustent": segundo_sustent
+				"1er_sustent": datos[columnas.index("1er_sustent")], 
+				"2do_sustent": datos[columnas.index("2do_sustent")]
 			},
 			"proyecto" : {
-				"1er_proyecto":primer_proyecto,
-				"2do_proyecto":segundo_proyecto,
-				"3er_proyecto":tercer_proyecto
+				"1er_proyecto":datos[columnas.index("1er_proyecto")],
+				"2do_proyecto":datos[columnas.index("2do_proyecto")],
+				"3er_proyecto":datos[columnas.index("3er_proyecto")]
 			},
 			"lecciones" : { 
-				"1er_lecciones":primer_lecciones,
-				"2do_lecciones": segundo_lecciones
+				"1er_lecciones":datos[columnas.index("1er_lecciones")],
+				"2do_lecciones":datos[columnas.index("2do_lecciones")]
 			},
 			"calif_final":{
-				"1er_calif_final":primer_calif_final,
-				"2do_calif_final":segundo_calif_final,
-				"3er_calif_final":tercer_calif_final,
-				"calif_final_practica": calif_final_practica
+				"1er_calif_final":datos[columnas.index("1er_calif_final")],
+				"2do_calif_final":datos[columnas.index("2do_calif_final")],
+				"3er_calif_final":datos[columnas.index("3er_calif_final")],
+				"calif_final_practica": datos[columnas.index("calif_final_practica")]
 			}		
 		}
 
-		self.examen = {
-			"1er_exam_": { "tema1": primer_exam_tema1 , "tema2": primer_exam_tema2 , "tema3": primer_exam_tema3 },
-			"2do_exam_": { "tema1": segundo_exam_tema1 , "tema2": segundo_exam_tema2 , "tema3": segundo_exam_tema3,
-							"tema4":segundo_exam_tema4,"tema5":segundo_exam_tema5,"tema6":segundo_exam_tema6,
-							"tema7":segundo_exam_tema7,"tema8":segundo_exam_tema8,"tema9":segundo_exam_tema9,"tema10":segundo_exam_tema10},
-			"3er_exam_": { "tema1": tercer_exam_tema1 , "tema2": tercer_exam_tema2 , "tema3": tercer_exam_tema3 }
-		}
+		examen_dict = {}
+		exam_list = ["1er_exam_","2do_exam_","3er_exam_"]
+		for exam in exam_list:
+			q = {}
+			for i,c in enumerate(columnas):
+				if exam in c:
+					q[c] = datos[i]
+			examen_dict[exam]=q
 
+		self.examen = examen_dict
 
 	def validarDatoVacio(self,dato,VACIO):
 		if not dato and dato!=0:
@@ -114,7 +104,10 @@ class Estudiante:
 		for examen, temas in self.examen.items():
 			for tema, calif in temas.items():
 				if calif:
-					d[examen+tema] = self.validarNumero(calif,TIPO_NO_NUMERICO) or self.validarCalificacion(calif, FUERA_DE_RANGO, validaciones['examen'][examen][tema])
+					d[tema] = self.validarNumero(calif,TIPO_NO_NUMERICO) or self.validarCalificacion(calif, FUERA_DE_RANGO, validaciones['examen'][examen][tema])
+				else:
+					#d[tema] = VACIO
+					print("** Warning ",self.nombre, " tiene el ",tema, " vacio")
 		return d
 
 	def validar(self, errores_mensajes,validaciones):

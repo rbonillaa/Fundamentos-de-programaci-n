@@ -174,7 +174,6 @@ for exam in exam_list:
 			q[c] = validations[i]
 	examen_dict[exam]=q
 
-print(examen_dict)
 validaciones["examen"]=examen_dict
 
 validateDataSheet(filename,columnas,colors,errorsMessages, validaciones)
