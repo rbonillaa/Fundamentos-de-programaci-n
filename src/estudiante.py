@@ -103,7 +103,7 @@ class Estudiante:
 
 		for examen, temas in self.examen.items():
 			for tema, calif in temas.items():
-				if calif:
+				if calif!=None:
 					d[tema] = self.validarNumero(calif,TIPO_NO_NUMERICO) or self.validarCalificacion(calif, FUERA_DE_RANGO, validaciones['examen'][examen][tema])
 				else:
 					#d[tema] = VACIO
