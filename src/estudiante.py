@@ -24,30 +24,33 @@ class Estudiante:
 		self.actividades = {
 			"sustent" : {
 				"1er_sustent": datos[columnas.index("1er_sustent")], 
-				"2do_sustent": datos[columnas.index("2do_sustent")]
+				#"2do_sustent": datos[columnas.index("2do_sustent")]
 			},
 			"proyecto" : {
 				"1er_proyecto":datos[columnas.index("1er_proyecto")],
-				"2do_proyecto":datos[columnas.index("2do_proyecto")],
-				"3er_proyecto":datos[columnas.index("3er_proyecto")]
+				#"2do_proyecto":datos[columnas.index("2do_proyecto")],
+				#"3er_proyecto":datos[columnas.index("3er_proyecto")]
 			},
 			"lecciones" : { 
 				"1er_lecciones":datos[columnas.index("1er_lecciones")],
-				"2do_lecciones":datos[columnas.index("2do_lecciones")]
+				#"2do_lecciones":datos[columnas.index("2do_lecciones")]
 			},
 			"calif_final":{
 				"1er_calif_final":datos[columnas.index("1er_calif_final")],
-				"2do_calif_final":datos[columnas.index("2do_calif_final")],
-				"3er_calif_final":datos[columnas.index("3er_calif_final")],
-				"calif_final_practica": datos[columnas.index("calif_final_practica")]
+				#"2do_calif_final":datos[columnas.index("2do_calif_final")],
+				#"3er_calif_final":datos[columnas.index("3er_calif_final")],
+				#"calif_final_practica": datos[columnas.index("calif_final_practica")]
 			}		
 		}
 
 		examen_dict = {}
-		exam_list = ["1er_exam_","2do_exam_","3er_exam_"]
+		#exam_list = ["1er_exam_","2do_exam_","3er_exam_"]
+		exam_list = ["1er_exam_"]
 		for exam in exam_list:
 			q = {}
 			for i,c in enumerate(columnas):
+				if c == None:
+					continue
 				if exam in c:
 					q[c] = datos[i]
 			examen_dict[exam]=q

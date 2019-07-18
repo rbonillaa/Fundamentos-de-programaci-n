@@ -11,6 +11,8 @@ def fillCell(cell,color,fill_type=None):
 
 def convertirDatosNumericos(estudiante,row,columnas):
 	for i,columna in enumerate(columnas):
+		if columna == None:
+			continue
 		if "exam" in columna:
 			for examen, temas in estudiante.examen.items():
 				for tema, calif in temas.items():
@@ -142,20 +144,7 @@ columnas,validations=getColumns(filename)
 """
 se crea un diccionario con el siguiente formato
 
-validaciones = {	
-	"genero": ["F","M"],
-	"veces_tomadas":[2,3],
-	"calif_final": 100,
-	"sustent": 1,
-	"proyecto": {"1er_proyecto":20,"2do_proyecto":20,"3er_proyecto":25},
-	"examen":{
-		"1er_exam_": { "tema1": 20, "tema2": 30, "tema3": 50 },
-		"2do_exam_": { "tema1": 15, "tema2": 10, "tema3": 20,"tema4": 15, "tema5": 20, "tema6": 1,"tema7": 9, "tema8":1, "tema9": 9,"tema10": 10},
-		"3er_exam_": { "tema1": 40, "tema2": 50, "tema3": 10 }
-	},
-	"lecciones":10,
-}
-"""
+
 validaciones = {
 	"genero": ["F","M"],
 	"veces_tomadas":[2,3],
@@ -164,12 +153,25 @@ validaciones = {
 	"proyecto":{"1er_proyecto":20,"2do_proyecto":20,"3er_proyecto":25},
 	"lecciones":10
 }
+"""
+validaciones = {
+	"genero": ["F","M"],
+	"veces_tomadas":[2,3],
+	"calif_final": 100,
+	"sustent": 1,
+	"proyecto":{"1er_proyecto":20},
+	"lecciones":10
+}
+
 # se agregan las preguntas del examen
 examen_dict = {}
 exam_list = ["1er_exam_","2do_exam_","3er_exam_"]
 for exam in exam_list:
 	q = {}
 	for i,c in enumerate(columnas):
+		print(c)
+		if c == None:
+			continue;
 		if exam in c:
 			q[c] = validations[i]
 	examen_dict[exam]=q
