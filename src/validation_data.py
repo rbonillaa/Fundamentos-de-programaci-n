@@ -77,7 +77,8 @@ def validateDataSheet(filename,columnas,colores,errorsMessages,validaciones):
 		else:
 			print("="*150)
 			print('¡Felicidades! Tu archivo de excel está listo para ser enviado')
-			print('Por favor enviar a rabonilla@espol.edu.ec y a obayona@fiec.espol.edu.ec')
+			print('Por favor enviar a rabonilla@fiec.espol.edu.ec con el subject Estadísticas P##-2019I')
+            print('No te olvides de renombrar tu archivo excel como estadisticas-P##-2019I.xlsx')
 		print("="*150)
 		print("Copyright (c) 2018 eslozano")
 		print('All Rights Reserved :)')
@@ -143,7 +144,7 @@ columnas,validations=getColumns(filename)
 
 """
 se crea un diccionario con el siguiente formato
-
+"""
 
 validaciones = {
 	"genero": ["F","M"],
@@ -151,15 +152,6 @@ validaciones = {
 	"calif_final": 100,
 	"sustent": 1,
 	"proyecto":{"1er_proyecto":20,"2do_proyecto":20,"3er_proyecto":25},
-	"lecciones":10
-}
-"""
-validaciones = {
-	"genero": ["F","M"],
-	"veces_tomadas":[2,3],
-	"calif_final": 100,
-	"sustent": 1,
-	"proyecto":{"1er_proyecto":20},
 	"lecciones":10
 }
 
@@ -170,9 +162,9 @@ for exam in exam_list:
 	q = {}
 	for i,c in enumerate(columnas):
 		print(c)
-		if c == None:
-			continue;
-		if exam in c:
+		#if c == None:
+			#continue;
+		if c != None and exam in c:
 			q[c] = validations[i]
 	examen_dict[exam]=q
 
