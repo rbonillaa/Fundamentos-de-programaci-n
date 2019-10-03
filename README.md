@@ -54,13 +54,13 @@ Instalar el siguiente paquete de python:
 
 ## Uso
 
-* Llene el arhivo de excel src/archivo.xlsx
-* Puede cambiar el nombre del archivo
-* Ejecute el script como: **python3 src/validation_data.py archivo.xlsx**
+* Llene el arhivo de excel src/estadisticas-2019I-P##.xlsx
+* Puede cambiar el nombre del archivo para incluir el paralelo.
+* Ejecute el script como: **python3 src/validation_data.py estadisticas-2019I-P##.xlsx**
 * Al finalizar se imprimirá un mensaje con la cantidad de estudiantes en los que se encontraron errores.
 * Abra su archivo y corrija las celdas con los colores descritos en la tabla descrita anterior.
 * Vuelva a correr el script.
 
 ====================================
 
-© 2018 eslozano, obayona
+© 2018 eslozano, obayona, rabonilla
